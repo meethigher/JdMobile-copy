@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<!--div高度为228px 图片高度为224px 咋就多出来了4px呢-->
+<!--原因：img为行内块元素，跟文字基线对齐，agx，g下面尾巴就是多出来的下间隙。所以解决方案(任选其一)：
+1.设置display:block;
+2.设置font-size:0;
+3.设置line-height:0;
+4.设置vertical-align任一个都可以
+-->
+
+<div class="box">
+    <img src="../images/banner_1.png" alt="">
+</div>
+</body>
+</html>

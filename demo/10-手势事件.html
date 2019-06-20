@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+        .box {
+            width:100%;
+            height:200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+<script>
+    window.onload=function (){
+        let bindSwipeEvent=function (dom,leftCallback,rightCallback){
+            let startX=0;
+            let distanceX=0;
+            let isMove=false;
+            dom.addEventListener("touchstart",function (e){
+                startX=e.touches[0].clientX;
+            });
+            dom.addEventListener("touchmove",function (e){
+                isMove=true;
+                let moveX=e.touches[0].clientX;
+                distanceX=moveX-startX;
+
+            });
+            dom.addEventListener("touchend",function (e){
+                if(isMove&&Math.abs(distanceX)>50){
+                    if(distanceX>0){
+                        rightCallback&&rightCallback.call(this,e);
+                    }else{
+                        leftCallback&&leftCallback.call(this,e);
+                    }
+                }
+                startX=0;
+                distanceX=0;
+                isMove=false;
+            });
+        };
+        bindSwipeEvent(document.querySelector(".box"),function (e){
+            console.log("左滑");
+        },function (){
+            console.log("右滑");
+        });
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+        .box {
+            width:100%;
+            height:200px;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box"></div>
+<!--<script src="../js/fastclick.min.js"></script>
+<script>
+    if ('addEventListener' in document) {
+        document.addEventListener('DOMContentLoaded', function() {
+            FastClick.attach(document.body);
+        }, false);
+    }
+    /*这样以后就可以正常使用click事件，不用担心300ms延迟了*/
+</script>-->
+<script>
+    window.onload=function (){
+        let bindTapEvent=function (dom,callback){
+            let startTime=0;
+            let isMove=false;
+            dom.addEventListener("click",function (){
+                console.log("click");
+            });
+            dom.addEventListener("touchstart",function (){
+                startTime=Date.now();
+            });
+            dom.addEventListener("touchmove",function (){
+                isMove=true;
+            });
+            dom.addEventListener("touchend",function (){
+                console.log(Date.now()-startTime);
+                if(Date.now()-startTime<150&&!isMove){
+                    console.log("tap");
+                }
+            });
+
+        };
+        bindTapEvent(document.querySelector(".box"),function (){
+
+        });
+    };
+</script>
+</body>
+</html>
